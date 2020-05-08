@@ -201,3 +201,26 @@ char crew::opp_direction(int index) {
         return 'e';
     }
 }
+bool crew::mover(){
+    if(!first_mate.empty()) {
+        search_location = first_mate_next();
+        discoverer('l');
+        if(treasure_found) {
+            return true;
+        }
+        return false;
+    }
+    search_location.first = -1;
+    search_location.second = -1;
+    
+    if(!captain.empty()) {
+        search_location = captain_next();
+    }
+    discoverer('s');
+    if(treasure_found) {
+        return true;
+    }
+    return false;
+    
+    return false;
+}

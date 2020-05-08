@@ -64,7 +64,7 @@ public:
     void first_mate_push(std::pair<int, int> &coordinate);
     std::pair<int, int> &first_mate_next();
     std::pair<int, int> &captain_next();
-    
+    bool mover();
     
     
 private:
