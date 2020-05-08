@@ -80,9 +80,10 @@ private:
     bool verbose;
     bool display_stats;
     char show_path;
+    bool treasure_found;
     
     void direction_helper(int index, std::pair<int, int> &investigate);
-    
+    char opp_direction(int index);
     
     
     

@@ -22,6 +22,7 @@ crew::crew() {
     verbose = false;
     display_stats = false;
     show_path = 'F';
+    treasure_found = false;
     
     pair<int, int> default_style;
     default_style.first = -1;
@@ -66,13 +67,54 @@ void crew::discoverer(char type) {
                     
                     map_layout[investigate.first][investigate.second].discovered = true;
                     first_mate_push(investigate);
+                    map_layout[investigate.first][investigate.second].direction_from = opp_direction(i);
                 }
-                //TODO:Found treasure
+                //Found treasure
                 if(map_layout[investigate.first][investigate.second].terrain == '$') {
+                    
+                    map_layout[investigate.first][investigate.second].direction_from = opp_direction(i);
+                    map_layout[investigate.first][investigate.second].discovered = true;
+                    treasure_found = true;
                     return;
                 }
             }
             
+            
+        }
+    }
+    if(type == 's') {
+        for(int i = 0; i < 4; ++i) {
+            pair<int, int> investigate = sail_location;
+            direction_helper(i, investigate);
+            
+            if(investigate != search_location) {
+                //find undisvoered land location
+                if(map_layout[investigate.first][investigate.second].terrain == 'o'
+                   && map_layout[investigate.first][investigate.second].discovered == false) {
+                    
+                    map_layout[investigate.first][investigate.second].discovered = true;
+                    map_layout[investigate.first][investigate.second].direction_from = opp_direction(i);
+                    first_mate_push(investigate);
+                    break;
+                }
+                //if find undiscovered sea location
+                if(map_layout[investigate.first][investigate.second].terrain == '.'
+                   && map_layout[investigate.first][investigate.second].discovered == false) {
+                    
+                    map_layout[investigate.first][investigate.second].discovered = true;
+                    map_layout[investigate.first][investigate.second].direction_from = opp_direction(i);
+                    captain_push(investigate);
+                }
+                //Treasure found
+                if(map_layout[investigate.first][investigate.second].terrain == '$') {
+                    
+                    map_layout[investigate.first][investigate.second].direction_from = opp_direction(i);
+                    map_layout[investigate.first][investigate.second].discovered = true;
+                    treasure_found = true;
+                    return;
+                }
+                
+            }
             
         }
     }
@@ -144,4 +186,18 @@ std::pair<int, int> &crew::first_mate_next() {
 }
 std::pair<int, int> &crew::captain_next() {
     return captain.front();
+}
+char crew::opp_direction(int index) {
+    if(directions[index] == 'n') {
+        return 's';
+    }
+    if(directions[index] == 's') {
+        return 'n';
+    }
+    if(directions[index] == 'e') {
+        return 'w';
+    }
+    else {
+        return 'e';
+    }
 }
