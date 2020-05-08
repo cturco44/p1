@@ -131,13 +131,15 @@ void read_map(crew &crew_in) {
     if(first == 'L') {
         while(getline(cin, s)) {
             if(s.length() == 5) {
-//                string first = s[0];
-//                string second = s[3];
                 
                 int row = s[0] - '0';
                 int col = s[2] - '0';
                 char terrain = s[4];
                 
+                if(terrain == '@') {
+                    pair<int, int> start (row, col);
+                    crew_in.set_sail_location(start);
+                }
                 if(terrain != '.') {
                     datum data_in;
                     data_in.discovered = false;
@@ -161,6 +163,10 @@ void read_map(crew &crew_in) {
             if(s.length() == capacity) {
                 for(int col = 0; col < capacity; ++col) {
                     if(s[col] != '.') {
+                        if(s[col] == '@') {
+                            pair<int, int> start (row, col);
+                            crew_in.set_sail_location(start);
+                        }
                         data_in.terrain = s[col];
                         crew_in.set_map(row, col, data_in);
                     } // != .

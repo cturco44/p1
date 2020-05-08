@@ -51,8 +51,12 @@ public:
     void set_map(int row, int col, datum &data_in) {
         map_layout[row][col] = data_in;
     }
+    void set_sail_location(std::pair<int, int> &start) {
+        sail_location = start;
+    }
     void map_resize(int capacity);
     void print_map() const;
+    void discoverer(char type);
     
 private:
     std::deque<std::pair<int, int>> captain;
@@ -67,6 +71,8 @@ private:
     bool verbose;
     bool display_stats;
     char show_path;
+    
+    void direction_helper(int index, std::pair<int, int> &investigate);
     
     
     

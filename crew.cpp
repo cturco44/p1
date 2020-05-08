@@ -23,6 +23,11 @@ crew::crew() {
     display_stats = false;
     show_path = 'F';
     
+    pair<int, int> default_style;
+    default_style.first = -1;
+    default_style.second = -1;
+    search_location = default_style;
+    sail_location = default_style;
 }
 void crew::map_resize(int capacity) {
     datum default_datum;
@@ -47,4 +52,64 @@ void crew::print_map() const {
         }
         cout << "\n";
     }
+}
+void crew::discoverer(char type) {
+    if(type == 'l') {
+        for(int i = 0; i < 4; ++i) {
+            pair<int, int> investigate = search_location;
+            direction_helper(i, investigate);
+            
+            if(investigate != search_location) {
+                //find undiscovered land location
+                if(map_layout[investigate.first][investigate.second].terrain == 'o'
+                   && map_layout[investigate.first][investigate.second].discovered == false) {
+                    
+                    map_layout[investigate.first][investigate.second].discovered = true;
+                    
+                }
+            }
+            
+        }
+    }
+    return;
+}
+//Changes pair to coordinates of one to that direction, if out of
+//bounds, doesn't change pair
+void crew::direction_helper(int index, pair<int, int> &investigate) {
+    if(directions[index] == 'n') {
+        int row = investigate.first - 1;
+        if(row < 0) {
+            return;
+        }
+        --investigate.first;
+        return;
+    } // N
+    
+    if(directions[index] == 's') {
+        int row = investigate.first + 1;
+        if(row > map_layout.size() - 1) {
+            return;
+        }
+        ++investigate.first;
+        return;
+    } // S
+    
+    if(directions[index] == 'e') {
+        int col = investigate.second + 1;
+        if(col > map_layout.size() - 1) {
+            return;
+        }
+        ++investigate.second;
+        return;
+    } // E
+    
+    if(directions[index] == 'w') {
+        int col = investigate.second - 1;
+        if(col < 0) {
+            return;
+        }
+        --investigate.second;
+        return;
+    } // E
+    
 }
