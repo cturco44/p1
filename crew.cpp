@@ -54,6 +54,14 @@ void crew::print_map() const {
         cout << "\n";
     }
 }
+void crew::print_map_discovered() const {
+    for(int i = 0; i < map_layout.size(); ++i) {
+        for(int j = 0; j < map_layout.size(); ++j) {
+            cout << map_layout[i][j].discovered;
+        }
+        cout << "\n";
+    }
+}
 void crew::discoverer(char type) {
     if(type == 'l') {
         for(int i = 0; i < 4; ++i) {
@@ -87,7 +95,7 @@ void crew::discoverer(char type) {
             pair<int, int> investigate = sail_location;
             direction_helper(i, investigate);
             
-            if(investigate != search_location) {
+            if(investigate != sail_location) {
                 //find undisvoered land location
                 if(map_layout[investigate.first][investigate.second].terrain == 'o'
                    && map_layout[investigate.first][investigate.second].discovered == false) {
@@ -104,6 +112,7 @@ void crew::discoverer(char type) {
                     map_layout[investigate.first][investigate.second].discovered = true;
                     map_layout[investigate.first][investigate.second].direction_from = opp_direction(i);
                     captain_push(investigate);
+                    
                 }
                 //Treasure found
                 if(map_layout[investigate.first][investigate.second].terrain == '$') {
@@ -118,6 +127,8 @@ void crew::discoverer(char type) {
             
         }
     }
+    cout << endl;
+    print_map_discovered();
     return;
 }
 //Changes pair to coordinates of one to that direction, if out of
@@ -204,18 +215,25 @@ char crew::opp_direction(int index) {
 bool crew::mover(){
     if(!first_mate.empty()) {
         search_location = first_mate_next();
+        first_mate_pop();
         discoverer('l');
         if(treasure_found) {
             return true;
         }
         return false;
     }
-    search_location.first = -1;
-    search_location.second = -1;
-    
-    if(!captain.empty()) {
-        search_location = captain_next();
+    //coming back from sea search
+    if(search_location.first == -1 && !captain.empty()) {
+        sail_location = captain_next();
+        captain_pop();
     }
+    
+    //coming back from land search
+    if(search_location.first != -1) {
+        search_location.first = -1;
+        search_location.second = -1;
+    }
+
     discoverer('s');
     if(treasure_found) {
         return true;
@@ -223,4 +241,4 @@ bool crew::mover(){
     return false;
     
     return false;
-}
+}   

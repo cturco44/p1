@@ -65,6 +65,7 @@ public:
     std::pair<int, int> &first_mate_next();
     std::pair<int, int> &captain_next();
     bool mover();
+    void print_map_discovered() const;
     
     
 private:
