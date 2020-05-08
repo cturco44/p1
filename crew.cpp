@@ -65,9 +65,14 @@ void crew::discoverer(char type) {
                    && map_layout[investigate.first][investigate.second].discovered == false) {
                     
                     map_layout[investigate.first][investigate.second].discovered = true;
-                    
+                    first_mate_push(investigate);
+                }
+                //TODO:Found treasure
+                if(map_layout[investigate.first][investigate.second].terrain == '$') {
+                    return;
                 }
             }
+            
             
         }
     }
@@ -111,5 +116,32 @@ void crew::direction_helper(int index, pair<int, int> &investigate) {
         --investigate.second;
         return;
     } // E
-    
+}
+void crew::captain_pop() {
+    captain.pop_front();
+}
+void crew::first_mate_pop() {
+    first_mate.pop_front();
+}
+void crew::first_mate_push(std::pair<int, int> &coordinate) {
+    if(first_mate_style == 'q') {
+        first_mate.push_back(coordinate);
+    }
+    if(first_mate_style == 's') {
+        first_mate.push_front(coordinate);
+    }
+}
+void crew::captain_push(std::pair<int, int> &coordinate) {
+    if(captain_style == 'q') {
+        captain.push_back(coordinate);
+    }
+    if(captain_style == 's') {
+        captain.push_front(coordinate);
+    }
+}
+std::pair<int, int> &crew::first_mate_next() {
+    return first_mate.front();
+}
+std::pair<int, int> &crew::captain_next() {
+    return captain.front();
 }

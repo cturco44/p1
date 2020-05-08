@@ -58,6 +58,15 @@ public:
     void print_map() const;
     void discoverer(char type);
     
+    void captain_pop();
+    void captain_push(std::pair<int, int> &coordinate);
+    void first_mate_pop();
+    void first_mate_push(std::pair<int, int> &coordinate);
+    std::pair<int, int> &first_mate_next();
+    std::pair<int, int> &captain_next();
+    
+    
+    
 private:
     std::deque<std::pair<int, int>> captain;
     std::deque<std::pair<int, int>> first_mate;
