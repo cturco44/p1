@@ -294,7 +294,7 @@ void crew::print_searching_island() {
             << "," << treasure_location.second << ".\n";
             return;
         }
-        cout << "returned with no treasure\n";
+        cout << "returned with no treasure.\n";
     }
 
 }
