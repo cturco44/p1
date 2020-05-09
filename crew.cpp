@@ -412,7 +412,13 @@ void crew::print_stats() {
     << "--- STATS ---\n";
 }
 void crew::print_show_path() {
-    if(show_path == 'm') {
+    if(show_path == 'F') {
+        return;
+    }
+    if(!treasure_found) {
+        return;
+    }
+    if(show_path == 'M') {
         print_map();
         return;
     }
