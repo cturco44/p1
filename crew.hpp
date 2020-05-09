@@ -71,6 +71,10 @@ public:
     bool mover();
     void print_map_discovered() const;
     void print_start();
+    void find_path();
+    void direction_helper_path(char direction_from, std::pair<int, int> &investigate);
+    void print_stats();
+    void print_show_path();
 
     
     
@@ -91,6 +95,7 @@ private:
     int num_sea_investigated;
     int num_land_investigated;
     int went_ashore;
+    int path_length;
     std::pair<int, int> start_location;
     std::pair<int, int> treasure_location;
     
@@ -99,6 +104,12 @@ private:
     
     void print_went_ashore();
     void print_searching_island();
+    datum &map_at(std::pair<int, int> &pair);
+    bool direction_change(char d1, char d2);
+    char proper_char(char direction);
+    
+    std::vector<std::pair<int, int>> land_search;
+    std::vector<std::pair<int, int>> sea_search;
     
     
     

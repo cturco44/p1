@@ -194,16 +194,14 @@ int main(int argc, char * argv[]) {
     crew maincrew;
     getArgs(argc, argv, maincrew);
     read_map(maincrew);
-    maincrew.print_map();
-    cout << endl;
     
     maincrew.print_start();
     while (!maincrew.mover()) {
     }
     
-    
-    maincrew.print_map();
-    maincrew.print_map_discovered();
+    maincrew.find_path();
+    maincrew.print_stats();
+    maincrew.print_show_path();
    
     return 0;
 }

@@ -23,6 +23,7 @@ crew::crew() {
     display_stats = false;
     show_path = 'F';
     treasure_found = false;
+    path_length = 0;
     
     pair<int, int> default_style;
     default_style.first = -1;
@@ -294,4 +295,135 @@ void crew::print_searching_island() {
         cout << "returned with no treasure\n";
     }
 
+}
+void crew::direction_helper_path(char direction_from, std::pair<int, int> &investigate) {
+    if(direction_from == 'n') {
+        int row = investigate.first - 1;
+        if(row < 0) {
+            return;
+        }
+        --investigate.first;
+        return;
+    } // N
+    
+    if(direction_from == 's') {
+        int row = investigate.first + 1;
+        if(row > map_layout.size() - 1) {
+            return;
+        }
+        ++investigate.first;
+        return;
+    } // S
+    
+    if(direction_from == 'e') {
+        int col = investigate.second + 1;
+        if(col > map_layout.size() - 1) {
+            return;
+        }
+        ++investigate.second;
+        return;
+    } // E
+    
+    if(direction_from == 'w') {
+        int col = investigate.second - 1;
+        if(col < 0) {
+            return;
+        }
+        --investigate.second;
+        return;
+    } // E
+}
+void crew::find_path() {
+    if(!treasure_found) {
+        return;
+    }
+    pair<int, int> back = treasure_location;
+    pair<int, int> front = treasure_location;
+    char back_direction = map_at(back).direction_from;
+    
+    direction_helper_path(map_at(back).direction_from, front);
+    //push treasure onto land vector
+    land_search.push_back(back);
+    
+    while(map_at(front).terrain != '@') {
+        
+        //sets front direction
+        char front_direction = map_at(front).direction_from;
+        
+        if(map_at(front).terrain == 'o') {
+            land_search.push_back(front);
+        }
+        else {
+            sea_search.push_back(front);
+        }
+        
+        //sets front to proper direction terrain
+        if(direction_change(front_direction, back_direction)) {
+            map_at(front).terrain = '+';
+        }
+        else {
+            map_at(front).terrain = proper_char(front_direction);
+        }
+        back = front;
+        back_direction = front_direction;
+        direction_helper_path(map_at(back).direction_from, front);
+        ++path_length;
+    }
+    map_at(treasure_location).terrain = 'X';
+    ++path_length;
+    sea_search.push_back(front);
+}
+datum &crew::map_at(std::pair<int, int> &pair) {
+    return map_layout[pair.first][pair.second];
+}
+bool crew::direction_change(char d1, char d2) {
+    bool up = false;
+    bool side = false;
+    
+    if(d1 == 'n' || d1 == 's' || d2 == 'n' || d2 == 's') {
+        up = true;
+    }
+    if(d1 == 'e' || d1 == 'w' || d2 == 'e' || d2 == 'w') {
+        side = true;
+    }
+    if(up && side) {
+        return true;
+    }
+    return false;
+}
+char crew::proper_char(char direction) {
+    if(direction == 'w' || direction == 'e') {
+        return '-';
+    }
+    return '|';
+}
+void crew::print_stats() {
+    if(!display_stats) {
+        return;
+    }
+    cout << "--- STATS ---\n"
+    << "Starting location: " << start_location.first << "," << start_location.second
+    << "\n"
+    << "Water locations investigated: " << num_sea_investigated << "\n"
+    << "Land locations investigated: " << num_land_investigated << "\n"
+    << "Went ashore: " << went_ashore << "\n"
+    << "Path length: " << path_length << "\n"
+    << "Treasure location: " << treasure_location.first << "," << treasure_location.second << "\n"
+    << "--- STATS ---\n";
+}
+void crew::print_show_path() {
+    if(show_path == 'm') {
+        print_map();
+        return;
+    }
+    cout << "Sail:\n";
+    for(auto it = sea_search.end() - 1; it >= sea_search.begin(); --it) {
+        cout << it->first << "," << it->second << "\n";
+    }
+    cout << "Search:\n";
+    for(auto it = land_search.end() - 1; it >= land_search.begin(); --it) {
+        cout << it->first << "," << it->second << "\n";
+    }
+    
+    
 }
