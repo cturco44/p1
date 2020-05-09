@@ -75,6 +75,7 @@ public:
     void direction_helper_path(char direction_from, std::pair<int, int> &investigate);
     void print_stats();
     void print_show_path();
+    void print_final_line();
 
     
     

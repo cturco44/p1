@@ -430,6 +430,9 @@ void crew::print_show_path() {
     for(auto it = land_search.end() - 1; it >= land_search.begin(); --it) {
         cout << it->first << "," << it->second << "\n";
     }
-    
-    
+}
+
+void crew::print_final_line() {
+    cout << "Treasure found at " << treasure_location.first << ","
+    << treasure_location.second << " with path length " << path_length << ".";
 }
