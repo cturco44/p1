@@ -29,6 +29,13 @@ crew::crew() {
     default_style.second = -1;
     search_location = default_style;
     sail_location = default_style;
+    start_location = default_style;
+    treasure_location = default_style;
+    
+    //stats stuff
+    num_sea_investigated = 0;
+    num_land_investigated = 0;
+    went_ashore = 0;
 }
 void crew::map_resize(int capacity) {
     datum default_datum;
@@ -103,6 +110,7 @@ void crew::discoverer(char type) {
                     map_layout[investigate.first][investigate.second].discovered = true;
                     map_layout[investigate.first][investigate.second].direction_from = opp_direction(i);
                     first_mate_push(investigate);
+                    ++went_ashore;
                     break;
                 }
                 //if find undiscovered sea location
@@ -127,8 +135,8 @@ void crew::discoverer(char type) {
             
         }
     }
-    cout << endl;
-    print_map_discovered();
+//    cout << endl;
+//    print_map_discovered();
     return;
 }
 //Changes pair to coordinates of one to that direction, if out of
@@ -216,8 +224,10 @@ bool crew::mover(){
     if(!first_mate.empty()) {
         search_location = first_mate_next();
         first_mate_pop();
+        ++num_land_investigated;
         discoverer('l');
         if(treasure_found) {
+            print_searching_island();
             return true;
         }
         return false;
@@ -226,19 +236,54 @@ bool crew::mover(){
     if(search_location.first == -1 && !captain.empty()) {
         sail_location = captain_next();
         captain_pop();
+        ++num_sea_investigated;
     }
     
+    discoverer('s');
     //coming back from land search
     if(search_location.first != -1) {
         search_location.first = -1;
         search_location.second = -1;
     }
 
-    discoverer('s');
+
+    if(!first_mate.empty()) {
+        print_went_ashore();
+    }
     if(treasure_found) {
+        print_searching_island();
+        return true;
+    }
+    //found no treasure
+    if(first_mate.empty() && captain.empty()) {
         return true;
     }
     return false;
     
     return false;
 }   
+void crew::print_start() {
+    if(verbose) {
+        cout << "Treasure hunt started at: " << start_location.first << ","
+        << start_location.second << "\n";
+    }
+}
+void crew::print_went_ashore() {
+    if(verbose) {
+        cout << "Went ashore at: " << first_mate_next().first << ","
+        << first_mate_next().second << "\n";
+        
+    }
+}
+void crew::print_searching_island() {
+    if(verbose) {
+        cout << "Searching island... party ";
+        if(treasure_found) {
+            cout << "found treasure at " << treasure_location.first
+            << "," << treasure_location.second << ".\n";
+            return;
+        }
+        cout << "returned with no treasure\n";
+    }
+
+}

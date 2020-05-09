@@ -105,7 +105,7 @@ void getArgs(int argc, char * argv[], crew &crew_in) {
                 
                 
         default:
-            cerr << "Error: invalid option" << endl;
+            cerr << "Error: invalid option\n";
             exit(1);
         } // switch
     } // while
@@ -140,6 +140,10 @@ void read_map(crew &crew_in) {
                     pair<int, int> start (row, col);
                     crew_in.set_sail_location(start);
                 }
+                if(terrain == '$') {
+                    pair<int, int> start (row, col);
+                    crew_in.set_treasure_location(start);
+                }
                 if(terrain != '.') {
                     datum data_in;
                     data_in.discovered = false;
@@ -167,6 +171,10 @@ void read_map(crew &crew_in) {
                             pair<int, int> start (row, col);
                             crew_in.set_sail_location(start);
                         }
+                        if(s[col] == '$') {
+                            pair<int, int> start (row, col);
+                            crew_in.set_treasure_location(start);
+                        }
                         data_in.terrain = s[col];
                         crew_in.set_map(row, col, data_in);
                     } // != .
@@ -187,10 +195,13 @@ int main(int argc, char * argv[]) {
     getArgs(argc, argv, maincrew);
     read_map(maincrew);
     maincrew.print_map();
+    cout << endl;
     
+    maincrew.print_start();
     while (!maincrew.mover()) {
-        cout << endl;
     }
+    
+    
     maincrew.print_map();
     maincrew.print_map_discovered();
    

@@ -53,6 +53,10 @@ public:
     }
     void set_sail_location(std::pair<int, int> &start) {
         sail_location = start;
+        start_location = start;
+    }
+    void set_treasure_location(std::pair<int, int> &start) {
+        treasure_location = start;
     }
     void map_resize(int capacity);
     void print_map() const;
@@ -66,6 +70,8 @@ public:
     std::pair<int, int> &captain_next();
     bool mover();
     void print_map_discovered() const;
+    void print_start();
+
     
     
 private:
@@ -82,9 +88,17 @@ private:
     bool display_stats;
     char show_path;
     bool treasure_found;
+    int num_sea_investigated;
+    int num_land_investigated;
+    int went_ashore;
+    std::pair<int, int> start_location;
+    std::pair<int, int> treasure_location;
     
     void direction_helper(int index, std::pair<int, int> &investigate);
     char opp_direction(int index);
+    
+    void print_went_ashore();
+    void print_searching_island();
     
     
     
