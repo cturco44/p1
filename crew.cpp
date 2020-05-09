@@ -434,5 +434,5 @@ void crew::print_show_path() {
 
 void crew::print_final_line() {
     cout << "Treasure found at " << treasure_location.first << ","
-    << treasure_location.second << " with path length " << path_length << ".";
+    << treasure_location.second << " with path length " << path_length << ".\n";
 }
