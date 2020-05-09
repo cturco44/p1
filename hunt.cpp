@@ -130,7 +130,7 @@ void read_map(crew &crew_in) {
     getline(cin, s);
     if(first == 'L') {
         while(getline(cin, s)) {
-            if((int)s.length() == 5) {
+            if(static_cast<int>(s.length()) == 5) {
                 
                 int row = s[0] - '0';
                 int col = s[2] - '0';
