@@ -34,7 +34,7 @@ crew::crew() {
     treasure_location = default_style;
     
     //stats stuff
-    num_sea_investigated = 0;
+    num_sea_investigated = 1;
     num_land_investigated = 0;
     went_ashore = 0;
 }
@@ -228,6 +228,7 @@ bool crew::mover(){
         ++num_land_investigated;
         discoverer('l');
         if(treasure_found) {
+            ++num_land_investigated;
             print_searching_island();
             return true;
         }
@@ -245,6 +246,7 @@ bool crew::mover(){
     if(search_location.first != -1) {
         search_location.first = -1;
         search_location.second = -1;
+        print_searching_island();
     }
 
 
