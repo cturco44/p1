@@ -164,7 +164,7 @@ void read_map(crew &crew_in) {
         
         while(getline(cin, s)) {
             //if its a valid line
-            if(s.length() == capacity) {
+            if((int)s.length() == capacity) {
                 for(int col = 0; col < capacity; ++col) {
                     if(s[col] != '.') {
                         if(s[col] == '@') {
