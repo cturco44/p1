@@ -250,8 +250,11 @@ bool crew::mover(){
     if(!first_mate.empty()) {
         print_went_ashore();
     }
+    //Treasure found by sea
     if(treasure_found) {
+        print_went_ashore();
         print_searching_island();
+        ++num_land_investigated;
         return true;
     }
     //found no treasure
@@ -270,6 +273,11 @@ void crew::print_start() {
 }
 void crew::print_went_ashore() {
     if(verbose) {
+        if(treasure_found) {
+            cout << "Went ashore at: " << treasure_location.first << ","
+            << treasure_location.second << "\n";
+            return;
+        }
         cout << "Went ashore at: " << first_mate_next().first << ","
         << first_mate_next().second << "\n";
         
