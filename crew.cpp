@@ -55,16 +55,16 @@ void crew::map_resize(int capacity) {
     }
 }
 void crew::print_map() const {
-    for(int i = 0; i < map_layout.size(); ++i) {
-        for(int j = 0; j < map_layout.size(); ++j) {
+    for(int i = 0; i < (int)map_layout.size(); ++i) {
+        for(int j = 0; j < (int)map_layout.size(); ++j) {
             cout << map_layout[i][j].terrain;
         }
         cout << "\n";
     }
 }
 void crew::print_map_discovered() const {
-    for(int i = 0; i < map_layout.size(); ++i) {
-        for(int j = 0; j < map_layout.size(); ++j) {
+    for(int i = 0; i < (int)map_layout.size(); ++i) {
+        for(int j = 0; j < (int)map_layout.size(); ++j) {
             cout << map_layout[i][j].discovered;
         }
         cout << "\n";
@@ -154,7 +154,7 @@ void crew::direction_helper(int index, pair<int, int> &investigate) {
     
     if(directions[index] == 's') {
         int row = investigate.first + 1;
-        if(row > map_layout.size() - 1) {
+        if(row > (int)map_layout.size() - 1) {
             return;
         }
         ++investigate.first;
@@ -163,7 +163,7 @@ void crew::direction_helper(int index, pair<int, int> &investigate) {
     
     if(directions[index] == 'e') {
         int col = investigate.second + 1;
-        if(col > map_layout.size() - 1) {
+        if(col > (int)map_layout.size() - 1) {
             return;
         }
         ++investigate.second;
@@ -308,7 +308,7 @@ void crew::direction_helper_path(char direction_from, std::pair<int, int> &inves
     
     if(direction_from == 's') {
         int row = investigate.first + 1;
-        if(row > map_layout.size() - 1) {
+        if(row > (int)map_layout.size() - 1) {
             return;
         }
         ++investigate.first;
@@ -317,7 +317,7 @@ void crew::direction_helper_path(char direction_from, std::pair<int, int> &inves
     
     if(direction_from == 'e') {
         int col = investigate.second + 1;
-        if(col > map_layout.size() - 1) {
+        if(col > (int)map_layout.size() - 1) {
             return;
         }
         ++investigate.second;
