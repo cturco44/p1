@@ -50,9 +50,11 @@ void getArgs(int argc, char * argv[], crew &crew_in) {
                 string str = string(optarg);
                 if(str == "queue") {
                     crew_in.set_captain_style('q');
+                    break;
                 }
                 if(str == "stack") {
                     crew_in.set_captain_style('s');
+                    break;
                 }
                 else {
                     exit(1);
@@ -64,9 +66,11 @@ void getArgs(int argc, char * argv[], crew &crew_in) {
                 string str = string(optarg);
                 if(str == "queue") {
                     crew_in.set_first_mate_style('q');
+                    break;
                 }
                 if(str == "stack") {
                     crew_in.set_first_mate_style('s');
+                    break;
                 }
                 else {
                     exit(1);
