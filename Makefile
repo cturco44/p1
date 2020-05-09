@@ -288,7 +288,7 @@ help:
 # % g++ -MM *.cpp
 #
 # ADD YOUR OWN DEPENDENCIES HERE
-
+hunt.o: hunt.cpp crew.cpp crew.hpp
 ######################
 # TODO (end) #
 ######################
