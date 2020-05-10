@@ -84,37 +84,44 @@ public:
     
     
 private:
+    bool direction_change(char d1, char d2);
+    char proper_char(char direction);
+    void direction_helper(int index, std::pair<int, int> &investigate);
+    char opp_direction(int index);
+    void print_went_ashore();
+    void print_searching_island();
+    datum &map_at(std::pair<int, int> &pair);
+    
+    std::vector<std::vector<datum>> map_layout;
+    std::vector<std::pair<int, int>> land_search;
+    std::vector<std::pair<int, int>> sea_search;
     std::deque<std::pair<int, int>> captain;
     std::deque<std::pair<int, int>> first_mate;
-    char captain_style;
-    char first_mate_style;
-    std::vector<std::vector<datum>> map_layout;
-    char directions[4];
-    bool print;
+    
+    std::pair<int, int> start_location;
+    std::pair<int, int> treasure_location;
     std::pair<int, int> search_location;
     std::pair<int, int> sail_location;
-    bool verbose;
-    bool display_stats;
-    char show_path;
-    bool treasure_found;
+    
     int num_sea_investigated;
     int num_land_investigated;
     int went_ashore;
     int path_length;
-    std::pair<int, int> start_location;
-    std::pair<int, int> treasure_location;
+
+    char captain_style;
+    char first_mate_style;
+    char directions[4];
     
-    void direction_helper(int index, std::pair<int, int> &investigate);
-    char opp_direction(int index);
+    bool print;
+    bool verbose;
+    bool display_stats;
+    char show_path;
+    bool treasure_found;
+
     
-    void print_went_ashore();
-    void print_searching_island();
-    datum &map_at(std::pair<int, int> &pair);
-    bool direction_change(char d1, char d2);
-    char proper_char(char direction);
+
     
-    std::vector<std::pair<int, int>> land_search;
-    std::vector<std::pair<int, int>> sea_search;
+
     
     
     

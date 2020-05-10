@@ -167,29 +167,30 @@ void read_map(crew &crew_in) {
     //gets endline
     getline(cin, s);
     if(first == 'L') {
-        while(getline(cin, s)) {
-            if(static_cast<int>(s.length()) == 5) {
+        int row;
+        int col;
+        char terrain;
+        while(cin >> row) {
+            cin >> col;
+            cin >> terrain;
+            string str;
+            getline(cin, str);
+            
+            if(terrain == '@') {
+                pair<int, int> start (row, col);
+                crew_in.set_sail_location(start);
+            }
+            if(terrain == '$') {
+                pair<int, int> start (row, col);
+                crew_in.set_treasure_location(start);
+            }
+            if(terrain != '.') {
+                datum data_in;
+                data_in.discovered = false;
+                data_in.terrain = terrain;
+                data_in.direction_from = 'f';
                 
-                int row = s[0] - '0';
-                int col = s[2] - '0';
-                char terrain = s[4];
-                
-                if(terrain == '@') {
-                    pair<int, int> start (row, col);
-                    crew_in.set_sail_location(start);
-                }
-                if(terrain == '$') {
-                    pair<int, int> start (row, col);
-                    crew_in.set_treasure_location(start);
-                }
-                if(terrain != '.') {
-                    datum data_in;
-                    data_in.discovered = false;
-                    data_in.terrain = terrain;
-                    data_in.direction_from = 'f';
-                    
-                    crew_in.set_map(row, col, data_in);
-                }
+                crew_in.set_map(row, col, data_in);
             }
         }
         return;
