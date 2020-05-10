@@ -1,4 +1,3 @@
-Correct output:
 Treasure hunt started at: 1,0
 Went ashore at: 0,0
 Searching island... party found treasure at 0,0.

@@ -1,0 +1,8 @@
+# Test 3 discover by sea
+# Test
+M
+4
+$...
+.#oo
+...@
+..oo

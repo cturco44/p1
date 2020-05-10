@@ -1,0 +1,8 @@
+# Test 6 blocked treasure
+# Test
+M
+4
+$#..
+##oo
+...@
+..oo

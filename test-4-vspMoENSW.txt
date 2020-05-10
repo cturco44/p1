@@ -1,0 +1,8 @@
+# Test 4 discover by sea change order
+# Test
+M
+4
+$...
+.#oo
+...@
+..oo
