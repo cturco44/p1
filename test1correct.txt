@@ -1,0 +1,15 @@
+Correct output:
+Treasure hunt started at: 1,0
+Went ashore at: 0,0
+Searching island... party found treasure at 0,0.
+--- STATS ---
+Starting location: 1,0
+Water locations investigated: 1
+Land locations investigated: 1
+Went ashore: 1
+Path length: 1
+Treasure location: 0,0
+--- STATS ---
+Xo
+@.
+Treasure found at 0,0 with path length 1.
