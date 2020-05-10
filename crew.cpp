@@ -128,6 +128,8 @@ void crew::discoverer(char type) {
                     
                     map_layout[investigate.first][investigate.second].direction_from = opp_direction(i);
                     map_layout[investigate.first][investigate.second].discovered = true;
+                    //added hopefully this fixes
+                    ++went_ashore;
                     treasure_found = true;
                     return;
                 }
@@ -435,6 +437,12 @@ void crew::print_show_path() {
 }
 
 void crew::print_final_line() {
-    cout << "Treasure found at " << treasure_location.first << ","
-    << treasure_location.second << " with path length " << path_length << ".\n";
+    if(treasure_found) {
+        cout << "Treasure found at " << treasure_location.first << ","
+        << treasure_location.second << " with path length " << path_length << ".\n";
+        return;
+    }
+    cout << "No treasure found after investigating "
+    << num_sea_investigated + num_land_investigated << " locations.\n";
+    
 }

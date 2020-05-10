@@ -11,7 +11,6 @@
 #include "xcode_redirect.hpp"
 #include <getopt.h>
 #include <algorithm>
-#include <iomanip>
 #include <string>
 #include <vector>
 #include "crew.hpp"
@@ -19,7 +18,34 @@
 
 
 using namespace std;
-
+bool check_in_vector(vector<char> &vec, char search) {
+    for(auto it = vec.begin(); it != vec.end(); ++it) {
+        if(*it == search) {
+            vec.erase(it);
+            return true;
+        }
+    }
+    return false;
+}
+bool check_order(const string &order) {
+    if(static_cast<int>(order.length()) != 4) {
+        return false;
+    }
+    char array[4] = {'n', 's', 'e', 'w'};
+    vector<char> vec;
+    vec.push_back(order[0]);
+    vec.push_back(order[1]);
+    vec.push_back(order[2]);
+    vec.push_back(order[3]);
+    
+    for(int i = 0; i < 4; ++i) {
+        if(!check_in_vector(vec, array[i])) {
+            return false;
+        }
+    }
+    return true;
+    
+}
 void getArgs(int argc, char * argv[], crew &crew_in) {
     
     option long_options[] = {
@@ -44,6 +70,7 @@ void getArgs(int argc, char * argv[], crew &crew_in) {
             case 'h': {
                 //TODO: Set useful message to something useful
                 cout << "useful message \n";
+                exit(1);
                 break;
             } // case h
             case 'c': {
@@ -80,6 +107,10 @@ void getArgs(int argc, char * argv[], crew &crew_in) {
                 
             case 'o': {
                 if(strlen(optarg) != 4) {
+                    exit(1);
+                }
+                string str = string(optarg);
+                if(!check_order(str)) {
                     exit(1);
                 }
                 for(int i = 0; i < 4; ++i) {
