@@ -58,6 +58,9 @@ public:
     void set_treasure_location(std::pair<int, int> &start) {
         treasure_location = start;
     }
+    char get_show_path() {
+        return show_path;
+    }
     void map_resize(int capacity);
     void print_map() const;
     void discoverer(char type);

@@ -127,6 +127,9 @@ void getArgs(int argc, char * argv[], crew &crew_in) {
                 crew_in.set_display_stats(true);
                 break;
             case 'p': {
+                if(crew_in.get_show_path() != 'F') {
+                    exit(1);
+                }
                 string str = string(optarg);
                 if(str.length() != 1) {
                     exit(1);
