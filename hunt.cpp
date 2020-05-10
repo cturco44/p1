@@ -235,6 +235,7 @@ int main(int argc, char * argv[]) {
     }
     
     maincrew.find_path();
+    maincrew.print_failed();
     maincrew.print_stats();
     maincrew.print_show_path();
     maincrew.print_final_line();

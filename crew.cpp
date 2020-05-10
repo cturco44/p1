@@ -410,10 +410,12 @@ void crew::print_stats() {
     << "\n"
     << "Water locations investigated: " << num_sea_investigated << "\n"
     << "Land locations investigated: " << num_land_investigated << "\n"
-    << "Went ashore: " << went_ashore << "\n"
-    << "Path length: " << path_length << "\n"
-    << "Treasure location: " << treasure_location.first << "," << treasure_location.second << "\n"
-    << "--- STATS ---\n";
+    << "Went ashore: " << went_ashore << "\n";
+    if(treasure_found) {
+        cout << "Path length: " << path_length << "\n"
+        << "Treasure location: " << treasure_location.first << "," << treasure_location.second << "\n";
+    }
+    cout << "--- STATS ---\n";
 }
 void crew::print_show_path() {
     if(show_path == 'F') {
@@ -445,4 +447,9 @@ void crew::print_final_line() {
     cout << "No treasure found after investigating "
     << num_sea_investigated + num_land_investigated << " locations.\n";
     
+}
+void crew::print_failed() {
+    if(!treasure_found) {
+        cout << "Treasure hunt failed\n";
+    }
 }

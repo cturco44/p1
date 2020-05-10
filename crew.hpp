@@ -76,6 +76,7 @@ public:
     void print_stats();
     void print_show_path();
     void print_final_line();
+    void print_failed();
 
     
     
