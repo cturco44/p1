@@ -55,7 +55,7 @@ void getArgs(int argc, char * argv[], crew &crew_in) {
         {"captain",    required_argument, nullptr, 'c'},
         {"first-mate", required_argument, nullptr, 'f'},
         {"hunt-order", required_argument, nullptr, 'o'},
-        {"vecbose",    no_argument,       nullptr, 'v'},
+        {"verbose",    no_argument,       nullptr, 'v'},
         {"stats",      no_argument,       nullptr, 's'},
         {"show-path",  required_argument, nullptr, 'p'},
         { nullptr, 0,                 nullptr, '\0' }
